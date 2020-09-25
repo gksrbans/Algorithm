@@ -1,0 +1,7 @@
+git init
+git add .
+git commit -m "Hash"
+git remote add origin https://github.com/gksrbans/Algorithm
+git remote
+git push origin master
+# git push -f origin master
