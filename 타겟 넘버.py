@@ -1,50 +1,25 @@
-# -*- conding: utf-8 -*-
+from collections import deque
 
-'''
-Author : gksrbans123@gmail.com
-Date : 2020-11-29
-URL : https://programmers.co.kr/learn/courses/30/lessons/43165
-Type : DFS / BFS
-'''
-
-cnt = 0
-
-def DFS(numbers, target, index=0):
-    global cnt
-    if index < len(numbers): # index 끝까지 안왔다면
-        numbers[index] *= 1
-        DFS(numbers, target, index+1)
-
-        numbers[index] *= -1
-        DFS(numbers, target, index+1)
-
-    elif sum(numbers) == target: #index가 끝까지왔을때 합이 같다면
-        cnt += 1
-
-def solution(numbers, target):
-    DFS(numbers, target)
-    return cnt
-
+numbers, target = [4, 1, 2, 1], 4
 
 answer = 0
+queue = deque()
+n = len(numbers)
 
-######################################################################
-# 훨씬 깔끔한 DFS 구현
+print(n)
+queue.append([numbers[0], 0])
+queue.append([-numbers[0], 0])
+print(queue, '첫번째 큐')
+while queue:
+    temp, idx = queue.popleft()
+    print(temp, idx, '팝팝', queue)
+    idx += 1
+    if idx < n:
+        queue.append([temp+numbers[idx], idx])
+        queue.append([temp-numbers[idx], idx])
+    else:
+        if temp == target:
+            answer += 1
 
-# def DFS(index, numbers, target, value):
-#     global answer
-#
-#     if (index == len(numbers) and target == value):
-#         answer += 1
-#     if (index == len(numbers)):
-#         return
-#
-#     DFS(index + 1, numbers, target, value + numbers[index])
-#     DFS(index + 1, numbers, target, value - numbers[index])
-#
-#
-# def solution(numbers, target):
-#     global answer
-#     DFS(0, numbers, target, 0)
-#     return answer
-######################################################################
+
+print(answer, '답임')
